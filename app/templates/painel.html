@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="app/templates/assets/images/favicon.ico">
+
+    <link href="app/templates/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/plugins/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="app/templates/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/css/util.css" rel="stylesheet" type="text/css" />
+
+    <link href="app/templates/assets/plugins/jstree/style.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+
+    <link href="app/templates/assets/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+    <link href="app/templates/assets/plugins/sweet-alert/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="app/templates/assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+
+    <script src="app/templates/assets/js/modernizr.min.js"></script>
+
+</head>
+
+<body>
+    <header id="topnav">
+        <div class="topbar-main">
+            <div class="container-fluid">
+
+                <div class="logo">
+                    <a href="#" class="logo">
+                        <img src="images/logo.jpg" alt="" height="26" class="logo-small">
+                    </a>
+                </div>
+
+                <div class="menu-extras topbar-custom">
+
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="menu-item">
+                            <a class="navbar-toggle nav-link">
+                                <div class="lines">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="hide-phone">
+                            <form class="app-search">
+                                <input type="text" placeholder="Pesquisa..."
+                                        class="form-control">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </li>
+
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="false" aria-expanded="false">
+                                <img src="app/templates/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="ti-user m-r-5"></i> Minha conta
+                                </a>
+
+                                <a href="#" onclick="logout();" class="dropdown-item notify-item">
+                                    <i class="ti-power-off m-r-5"></i> Sair
+                                </a>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div id="navigation">
+                <ul class="navigation-menu">
+                    <li class="has-submenu">
+                        <a href="#" onclick="goTo('divCredenciamento', 1000);"><i class="mdi mdi-ticket-confirmation"></i><span>Credenciamento</span></a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" onclick="goTo('divEvento', 1000);"><i class="mdi mdi-home-automation"></i><span>Evento</span></a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" onclick="goTo('divEmpresa', 1000);"><i class="mdi mdi-account-settings-variant"></i><span>Empresa contratante</span></a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" onclick="goTo('divDash', 1000);chartPeopleByEvents();"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#" onclick="goTo('divUsuario', 1000);"><i class="dripicons-user-group"></i><span>Usuários</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div> 
+    </header>
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row" id="divCredenciamento">
+                <div class="col-xl-12">
+                    <hr />
+                    <div class="card-box" style="background-color: rgb(252, 252, 252);">
+
+                        <h4 class="header-title m-t-0 m-b-30">Credenciamento</h4>
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label>Selecione o evento</label>
+                                <select id="CB_FILTRO_EVENTO" class="form-control" onchange="listCredenciamento();"></select>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                        <br>
+                        <table id="gridCredenciamento" class="table table-bordered" cellspacing="0" style="width: 100%;">
+                            <thead>
+                                <tr style="background-color: purple; color: white;">
+                                    <th style="width: 30%;">Evento</th>
+                                    <th style="width: 20%;">Data / hora</th>
+                                    <th style="width: 40%;">Convidado(a)</th>
+                                    <th style="width: 10%;">Presente?</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="divEvento">
+                <div class="col-xl-12" >
+                    <hr />
+                    <div class="card-box" style="background-color: rgb(252, 252, 252);">
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-royalblue btn-rounded waves-light waves-effect" onclick="newEvento();">Novo&nbsp;&nbsp;<i class="mdi mdi-star"></i></button>
+                        </div>
+
+                        <h4 class="header-title m-t-0 m-b-30">Evento</h4>
+
+                        <table id="gridEventos" class="table table-bordered" cellspacing="0" style="width: 100%;">
+                            <thead>
+                                <tr style="background-color: purple; color: white;">
+                                    <th style="width: 15%;">Data / hora</th>
+                                    <th style="width: 40%;">Evento</th>
+                                    <th style="width: 35%;">Empresa</th>
+                                    <th style="width: 10%;">Convidados</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>      
+            </div>  
+        
+            <div class="row" id="divEmpresa">
+                <div class="col-xl-12" >
+                    <hr />
+                    <div class="card-box" style="background-color: rgb(252, 252, 252);">
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-danger btn-rounded waves-light waves-effect" onclick="listEmpresa();">Atualizar&nbsp;&nbsp;<i class="mdi mdi-refresh"></i></button>
+                            <button class="btn btn-royalblue btn-rounded waves-light waves-effect" onclick="newEmpresa();">Novo&nbsp;&nbsp;<i class="mdi mdi-star"></i></button>
+                        </div>
+
+                        <h4 class="header-title m-t-0 m-b-30">Empresa contratante</h4>
+
+                        <table id="gridEmpresa" class="table table-bordered" cellspacing="0" style="width: 100%;">
+                            <thead>
+                                <tr style="background-color:purple; color: white;">
+                                    <th style="width: 50%;">Nome fantasia</th>
+                                    <th style="width: 10%;">UF</th>
+                                    <th style="width: 25%;">Contato</th>
+                                    <th style="width: 15%;">Telefone</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="divDash">
+                <div class="col-xl-12" >
+                    <hr />
+                    <div class="card-box" style="background-color: rgb(252, 252, 252);">
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-2" style="text-align: right;"><label>Eventos a partir de</label></div>
+                            <div class="col-sm-2"><input type="date" class="form-control" id="TXT_FILTRO_DATA_EVENTO" /></div>
+                            <div class="col-sm-2"><button class="btn btn-royalblue btn-rounded waves-light waves-effect" onclick="chartPeopleByEvents();">
+                                Atualizar&nbsp;&nbsp;<i class="mdi mdi-refresh"></i></button></div>
+                        </div>                            
+
+                        <h4 class="header-title m-t-0 m-b-30">Dashboard</h4>
+                        <div id="dashBoard1">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="divUsuario">
+                <div class="col-xl-12" >
+                    <hr />
+                    <div class="card-box" style="background-color: rgb(252, 252, 252);">
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-royalblue btn-rounded waves-light waves-effect" onclick="newUser();">Novo&nbsp;&nbsp;<i class="mdi mdi-star"></i></button>
+                        </div>
+
+                        <h4 class="header-title m-t-0 m-b-30">Contas de Usuários</h4>
+
+                        <table id="gridUsuario" class="table table-bordered" cellspacing="0" style="width: 100%;">
+                            <thead>
+                                <tr style="background-color: purple; color: white;">
+                                    <th style="width: 40%;">Nome</th>
+                                    <th style="width: 40%;">E-mail</th>
+                                    <th style="width: 10%;">Perfil</th>
+                                    <th style="width: 10%;">Ativo</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>    
+
+            <div id="divFormUser" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none; top: 150px;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #EBEFF2;">
+                        <div class="modal-header">
+                            <h4 class="modal-title mt-0" id="myLargeModalLabel">Usuário</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form1" action="#" data-parsley-validate novalidate>
+                                <div class="form-group">
+                                    <label>Nome do usuário*</label>
+                                    <input type="text" parsley-trigger="change" required maxlength="60"
+                                        placeholder="Nome do usuário" class="form-control" id="TXT_USER_NAME">
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail*</label>
+                                    <input parsley-trigger="change" type="email" maxlength="80"
+                                        placeholder="E-mail do usuário"
+                                        class="form-control" id="TXT_EMAIL_USER" />
+                                </div>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 30%;">
+                                            <div class="form-group">
+                                                <label>Senha*</label>
+                                                <input type="password" required maxlength="20"
+                                                    placeholder="Senha do usuário" class="form-control" id="TXT_PASSWORD1" />
+                                            </div>
+                                        </td>
+                                        <td style="width: 30%;">
+                                            <div class="form-group">
+                                                <label>Usuário Ativo*</label>
+                                                <select parsley-trigger="change" required type="date"
+                                                        class="form-control" id="CB_USER_ENABLED">
+                                                    <option value="0">Não</option>
+                                                    <option value="1" selected>Sim</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td style="width: 30%;">
+                                            <div class="form-group">
+                                                <label>Tipo do usuário*</label>
+                                                <select parsley-trigger="change" required type="date"
+                                                        class="form-control" id="CB_KIND_USER">
+                                                    <option value="0" selected>Recepção</option>
+                                                    <option value="1">Administrador(a)</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="form-group text-right m-b-0">
+                                    <button class="btn btn-primary waves-effect waves-light" onclick="saveUser();">
+                                        Salvar
+                                    </button>
+                                    <button class="btn btn-secondary waves-effect waves-light m-l-5" onclick="cancelUser();">
+                                        Cancelar
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divFormEmpresa" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel2" aria-hidden="true" style="display: none; top: 50px;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #EBEFF2;">
+                        <div class="modal-header">
+                            <h4 class="modal-title mt-0" id="myLargeModalLabel2">Empresa contratante</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" data-parsley-validate novalidate>
+                                <div class="form-group row">
+                                    <div class="col-sm-7">
+                                        <label>Razão social*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="100"
+                                            placeholder="Razão Social" class="form-control" id="TXT_RAZAO_SOCIAL">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <label>Nome fantasia*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="35"
+                                            placeholder="Nome fantasia" class="form-control" id="TXT_NOME_FANTASIA">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label>CNPJ*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="20"
+                                            placeholder="CNPJ" class="form-control" id="TXT_CNPJ">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>IE*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="15"
+                                            placeholder="Inscrição estadual" class="form-control" id="TXT_IE">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-7">
+                                        <label>Endereço*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="100"
+                                            placeholder="Endereço" class="form-control" id="TXT_ENDERECO">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>Nr*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="15"
+                                            placeholder="Numero" class="form-control" id="TXT_NUMERO">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Compl.</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="20"
+                                            placeholder="Complemento" class="form-control" id="TXT_COMPLEMENTO">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label>CEP*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="10"
+                                            placeholder="CEP" class="form-control" id="TXT_CEP">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <label>Município*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="80"
+                                            placeholder="Cidade" class="form-control" id="TXT_MUNICIPIO">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label>UF*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="2"
+                                            placeholder="Unidade federal" class="form-control" id="TXT_UF">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label>E-mail*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="70"
+                                            placeholder="E-mail" class="form-control" id="TXT_EMAIL">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Telefone*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="30"
+                                            placeholder="Telefone" class="form-control" id="TXT_TELEFONE">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Contato*</label>
+                                        <input type="text" parsley-trigger="change" required maxlength="50"
+                                            placeholder="Contato" class="form-control" id="TXT_CONTATO">
+                                    </div>
+                                </div>
+                                <div class="form-group text-right m-b-0">
+                                    <button class="btn btn-primary waves-effect waves-light" onclick="saveEmpresa();">
+                                        Salvar
+                                    </button>
+                                    <button class="btn btn-secondary waves-effect waves-light m-l-5" onclick="cancelEmpresa();">
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divFormEvento" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel1" aria-hidden="true" style="display: none; top: -20px;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #EBEFF2;">
+                        <div class="modal-header">
+                            <h4 class="modal-title mt-0" id="myLargeModalLabel1">Evento</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" data-parsley-validate novalidate>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input type="text" parsley-trigger="change" required maxlength="150"
+                                            placeholder="Título do evento / descrição*" class="form-control" id="TXT_TITULO_EVENTO" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-7">
+                                        <label>Empresa contratante*</label>
+                                        <select type="text" parsley-trigger="change" required 
+                                            placeholder="Empresa" class="form-control" id="CB_ID_EMPRESA">
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Data do evento*</label>
+                                        <input type="date" class="form-control" id="TXT_DATA_EVENTO" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>Hora do evento*</label>
+                                        <input type="time" parsley-trigger="change" required
+                                            placeholder="Hora" class="form-control" id="TXT_HORA_EVENTO" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input type="text" parsley-trigger="change" required maxlength="2000"
+                                            placeholder="Observações gerais" class="form-control" id="TXT_OBSERVACOES" />
+                                    </div>
+                                </div>
+                            </form>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <input type="text" parsley-trigger="change" required maxlength="80"
+                                        placeholder="Nome do(a) convidado(a)*" class="form-control" id="TXT_NOME_CONVIDADO" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" parsley-trigger="change" required maxlength="20"
+                                        placeholder="Celular*" class="form-control" id="TXT_CELULAR_CONVIDADO" />
+                                </div>
+                                <div class="col-sm-4">
+                                        <button class="btn btn-royalblue btn-rounded waves-effect waves-light" title="Salvar" onclick="saveEvento();">
+                                            Salvar &nbsp; <i class="mdi mdi-content-save-all"></i></button>
+                                        <button class="btn btn-warning btn-rounded waves-effect waves-light" title="Novo" onclick="resetaFormConvidado(1);">
+                                            Novo &nbsp; <i class="mdi mdi-star"></i></button>
+                                </div>
+                            </div>
+                            <br>
+                            <table id="gridConvidados" class="table table-bordered" cellspacing="0" style="width: 100%;">
+                                <thead>
+                                    <tr style="background-color:royalblue; color: white;">
+                                        <th></th>
+                                        <th style="width: 60%;">Nome</th>
+                                        <th style="width: 40%;">Celular</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    2019 © Credenciamento
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+<script src="app/templates/assets/js/jquery.min.js"></script>
+<script src="app/templates/assets/js/popper.min.js"></script>
+<script src="app/templates/assets/js/bootstrap.min.js"></script>
+<script src="app/templates/assets/js/waves.js"></script>
+<script src="app/templates/assets/js/jquery.slimscroll.js"></script>
+<script src="app/templates/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/jszip.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/pdfmake.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/vfs_fonts.js"></script>
+<script src="app/templates/assets/plugins/datatables/buttons.html5.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/buttons.print.min.js"></script>
+<script src="app/templates/assets/plugins/switchery/switchery.min.js"></script>
+
+<script src="app/templates/assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+
+<script src="app/templates/assets/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="app/templates/assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+<script src="app/templates/assets/plugins/datatables/dataTables.select.min.js"></script>
+
+<script src="app/templates/assets/js/jquery.core.js"></script>
+<script src="app/templates/assets/js/jquery.app.js"></script>
+
+<script src="app/templates/assets/plugins/fileuploads/js/dropify.min.js"></script>
+
+<script src="app/templates/assets/plugins/sweet-alert/sweetalert2.min.js"></script>
+<script src="app/templates/assets/pages/jquery.sweet-alert.init.js"></script>
+
+<script src="app/templates/assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
+
+<script src="app/templates/scripts/util.js"></script>
+<script src="app/templates/scripts/user.js"></script>
+<script src="app/templates/scripts/empresa.js"></script>
+<script src="app/templates/scripts/evento.js"></script>
+<script src="app/templates/scripts/credenciamento.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"> </script>
+
+<script type="text/javascript" src="app/templates/scripts/dashBoard.js"></script>
+
+<script type="text/javascript">
+
+    const h = window.innerHeight;
+    let keep;
+    let idUser = -1;
+    let grid1
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    const refreshGrid = (grid, data, _height) => {
+        if (!_height)
+            _height = parseInt(h * .38);
+
+        grid.map((item) => {
+            if (grid1) {
+                $('#' + item).DataTable().clear().destroy();
+                grid1 = undefined;
+            }
+
+            grid1 = $('#' + item).DataTable({
+                data: data,
+                scrollY: item == 'gridCredenciamento' ? parseInt(h * .34) : _height,
+                searching: true,
+                pageLength: 100,
+                select: {
+                    style: 'single'
+                },
+                language: ptBr
+            });
+
+            grid1.on('select', function (e, dt, type, indexes) {
+            });
+        });
+    };
+
+    const goTo = (div, seconds) => {
+        pointIt(div, seconds);
+    };
+
+    const logout = () => {
+        keep = undefined;
+        idUser = undefined;
+    };
+
+    $(document).ready(() => {
+        const _h = h - 60;
+
+        keep = getParamsFromUrl('token');
+        idUser = getParamsFromUrl('data1');
+
+        $('form input').keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+            }
+        });
+
+        listUsers();
+        listEmpresa();
+        listEvento();
+        carregaEventoCredenciamento();
+
+        $('#TXT_FILTRO_DATA_EVENTO').val(bsDateAdd(-30));
+
+        refreshGrid(['gridCredenciamento', 'gridEventos'], []);
+    });
+
+</script>
