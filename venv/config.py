@@ -6,10 +6,10 @@ class Config(object):
     DB_SERVER_NAME = "localhost:3306"
     DB_NAME = "Credenciamento"
     DB_USERNAME = "root"
-    DB_PASSWORD = "56Runna01"
+    DB_PASSWORD = "yourKeyMane"
 
-    ZIP_UPLOADS = "/Users/caioDoran/Documents/Github/Credenciamento/csv"
-    ZIP_DOWNLOADS = '/Users/caioDoran/Documents/Github/Credenciamento/csv'
+    ZIP_UPLOADS = "/Users/caioDoran/Documents/Github/Credenciamento/Credenciamento/csv"
+    ZIP_DOWNLOADS = '/Users/caioDoran/Documents/Github/Credenciamento/Credenciamento/csv'
     ZIP_ADDRESS = 'http://127.0.0.1:5000/csv/'
 
     SESSION_COOKIE_SECURE = False
@@ -25,10 +25,10 @@ class DevelopmentConfig(Config):
     DB_SERVER_NAME = "localhost:3306"
     DB_NAME = "Credenciamento"
     DB_USERNAME = "root"
-    DB_PASSWORD = "56Runna01"
+    DB_PASSWORD = "yourKeyMane"
 
-    ZIP_UPLOADS = "/Users/caioDoran/Documents/Github/Credenciamento/csv"
-    ZIP_DOWNLOADS = '/Users/caioDoran/Documents/Github/Credenciamento/csv'
+    ZIP_UPLOADS = "/Users/caioDoran/Documents/Github/Credenciamento/Credenciamento/csv"
+    ZIP_DOWNLOADS = '/Users/caioDoran/Documents/Github/Credenciamento/Credenciamento/csv'
     ZIP_ADDRESS = 'http://127.0.0.1:5000/csv/'
 
     SESSION_COOKIE_SECURE = False
@@ -39,10 +39,10 @@ class TestingConfig(Config):
     DB_SERVER_NAME = "localhost:3306"
     DB_NAME = "Credenciamento"
     DB_USERNAME = "root"
-    DB_PASSWORD = "56Runna01"
+    DB_PASSWORD = "yourKeyMane"
 
-    ZIP_UPLOADS = "/Users/caioDoran/Documents/Github/Credenciamento/csv"
-    ZIP_DOWNLOADS = '/Users/caioDoran/Documents/Github/Credenciamento/csv'
+    ZIP_UPLOADS = "/Users/caioDoran/Documents/Github/Credenciamento/Credenciamento/csv"
+    ZIP_DOWNLOADS = '/Users/caioDoran/Documents/Github/Credenciamento/Credenciamento/csv'
     ZIP_ADDRESS = 'http://127.0.0.1:5000/csv/'
 
     SESSION_COOKIE_SECURE = False
