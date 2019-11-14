@@ -23,12 +23,12 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 # Fields marked as "Optional" may be commented out.
 
 setup(
-    name='Microservice_Recipe',  # Required
+    name='Credenciamento',  # Required
     version='1.0.0',  # Required
     description='Microservice Recipe',  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional (see note above)
-    url='https://github.com/caiorodro/Microservice_Recipe',  # Optional
+    url='https://github.com/caiorodro/Credenciamento',  # Optional
 
     author='Caio Rodrigues (https://github.com/caiorodro)',  # Optional
     author_email='caiorodro@gmail.com',  # Optional
@@ -65,9 +65,9 @@ setup(
         ],
     },
     project_urls={  # Optional
-        'Bug Reports': 'https://github.com/caiorodro/Microservice_Recipe/issues',
+        'Bug Reports': 'https://github.com/caiorodro/Credenciamento/issues',
         'Funding': '',
         'Say Thanks!': 'https://github.com/caiorodro/',
-        'Source': 'https://github.com/caiorodro/Microservice_Recipe',
+        'Source': 'https://github.com/caiorodro/Credenciamento',
     },
 )
