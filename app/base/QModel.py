@@ -94,10 +94,9 @@ def connect():
         raise Exception('Cannot connect on database')
 
 def close():
-    try:
-        engine.close()
-    except Exception:
-        pass
+    conn.close()
+    engine.dispose()
+    session.close()
 
 conn = connect()
 mapAllTables()
